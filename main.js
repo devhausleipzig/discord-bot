@@ -2,29 +2,38 @@
 require('dotenv').config();
 const Discord = require("discord.js");
 const client = new Discord.Client();
+let botAvatar, timeout;
+//const victimID = '227127395268820992'; //simon
+//const victimID = '305765240942100480'; //taylor
+const victimID = '227127395268820992' //franz
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 
 client.on("message", message => {
-  if (message.author.bot) return;
-  // The process.env.PREFIX is your bot's prefix in this case.
-  if (message.content.indexOf(process.env.PREFIX) !== 0) return;
 
-  // This is the usual argument parsing we love to use.
-  const args = message.content.slice(process.env.PREFIX.length).trim().split(/ +/g);
-  const command = args.shift().toLowerCase();
+  //if (message.content.indexOf(process.env.PREFIX) !== 0) return;
 
-  // And our 2 real basic commands!
-  if(command === 'ping') {
-    message.channel.send('Pong!');
-  } else
-  if (command === 'blah') {
-    message.channel.send('Meh.');
+  if (message.author.id == victimID && !message.author.bot) {
+
+    timeout = 0;
+    const imageurl = message.author.displayAvatarURL()
+    botAvatar = client.user.avatarURL();
+    if ( botAvatar !== imageurl ) {
+      client.user.setAvatar(imageurl).catch( (err) => { return } );
+      timeout = 500;
+    }
+
+    const partial = message.content.match(/(?:im|i'm|i am)((?: \w+){1,4})/i)[1].trim();
+    if ( partial ) {
+      const sendMessage = () => {
+        message.channel.send(`Hi *${partial}*, I'm dad.`);
+      };
+      setTimeout(sendMessage, timeout)
+    }
+
   }
 });
 
-// There's zero need to put something here. Discord.js uses process.env.CLIENT_TOKEN if it's available,
-// and this is what is being used here. If on discord.js v12, it's DISCORD_TOKEN
 client.login(process.env.DISCORD_TOKEN);
