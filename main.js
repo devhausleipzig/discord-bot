@@ -3,8 +3,8 @@ require('dotenv').config();
 const Discord = require("discord.js");
 const client = new Discord.Client();
 
-client.on("ready", () => {
-  console.log("I am ready!");
+client.on('ready', () => {
+  console.log(`Logged in as ${client.user.tag}!`);
 });
 
 client.on("message", message => {
@@ -27,4 +27,4 @@ client.on("message", message => {
 
 // There's zero need to put something here. Discord.js uses process.env.CLIENT_TOKEN if it's available,
 // and this is what is being used here. If on discord.js v12, it's DISCORD_TOKEN
-client.login();
+client.login(process.env.DISCORD_TOKEN);
