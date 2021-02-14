@@ -18,11 +18,11 @@ client.on("message", message => {
 
   if (message.author.id == victimID && !message.author.bot) {
 
-    const partial = message.content
-      .match(/(?:im|i'm|i am)((?: (?:\w+(?:'(?:re|[tdms]))?)){1,4})/i)[1]
-      .trim();
+    let partial = message.content
+      .match(/(?:im|i'm|i am)((?: (?:\w+(?:'(?:re|[tdms]))?)){1,4})/i)[1];
 
     if ( partial ) {
+        partial = partial.trim();
         message.channel.send(`Hi *${partial}*, I'm dad.`);
       }
 
