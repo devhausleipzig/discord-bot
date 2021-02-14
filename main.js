@@ -4,9 +4,8 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 let botAvatar, timeout;
 
-const victimID = '665658548956561441'; //simon
-//const victimID = '305765240942100480'; //taylor
-//const victimID = '227127395268820992' //franz
+//const victimID = '665658548956561441'; //simon
+const victimID = '305765240942100480'; //taylor
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
