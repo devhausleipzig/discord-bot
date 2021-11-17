@@ -20,7 +20,7 @@ client.on("messageCreate", message => {
   if (message.author.id == victimID && !message.author.bot) {
 
     let partial = message.content
-      .match(/(?:im|i'm|i am)((?: (?:\w+(?:'(?:re|[tdms]))?)){1,4})/i);
+      .match(/(?:^|\s)(?:im|i'm|i am)((?: (?:\w+(?:'(?:re|[tdms]))?)){1,4})/i);
 
     if ( partial ) {
         partial = partial[1]
