@@ -1,7 +1,9 @@
 // This line MUST be first, for discord.js to read the process envs!
 require('dotenv').config();
-const Discord = require("discord.js");
-const client = new Discord.Client();
+const { Client, Intents } = require("discord.js");
+
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS] });
+
 let botAvatar, timeout;
 
 //const victimID = '665658548956561441'; //simon
@@ -11,18 +13,19 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 
-client.on("message", message => {
-
+client.on("messageCreate", message => {
+  console.log(message)
   //if (message.content.indexOf(process.env.PREFIX) !== 0) return;
 
   if (message.author.id == victimID && !message.author.bot) {
 
     let partial = message.content
-      .match(/(?:im|i'm|i am)((?: (?:\w+(?:'(?:re|[tdms]))?)){1,4})/i)[1];
+      .match(/(?:im|i'm|i am)((?: (?:\w+(?:'(?:re|[tdms]))?)){1,4})/i);
 
     if ( partial ) {
+        partial = partial[1]
         partial = partial.trim();
-        message.channel.send(`Hi *${partial}*, I'm dad.`);
+        message.channel.send({content: `Hi *${partial}*, I'm dad.`});
       }
 
     }
